@@ -1,4 +1,4 @@
-package com.yunseong.core.payment.domain;
+package com.yunseong.core.payment;
 
 public enum PaymentMethod {
 

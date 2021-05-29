@@ -1,6 +1,6 @@
 package com.yunseong.core.payment.controller;
 
-import com.yunseong.core.payment.controller.vo.KakaoPayOrderVO;
+import com.yunseong.core.payment.KakaoPayOrderVO;
 import com.yunseong.core.payment.service.KakaoPayService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

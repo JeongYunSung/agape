@@ -1,9 +1,9 @@
 package com.yunseong.core.order.service;
 
 import com.yunseong.core.DomainArgumentResolver;
-import com.yunseong.core.order.controller.vo.CreateOrderRequest;
-import com.yunseong.core.order.controller.vo.FoodVO;
-import com.yunseong.core.payment.domain.PaymentMethod;
+import com.yunseong.core.order.CreateOrderRequest;
+import com.yunseong.core.order.FoodVO;
+import com.yunseong.core.payment.PaymentMethod;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,6 +1,6 @@
 package com.yunseong.core.payment.config;
 
-import com.yunseong.core.payment.controller.vo.KakaoPay;
+import com.yunseong.core.payment.KakaoPay;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;

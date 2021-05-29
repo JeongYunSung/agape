@@ -1,5 +1,6 @@
 package com.yunseong.core.payment.domain;
 
+import com.yunseong.core.payment.PaymentMethod;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

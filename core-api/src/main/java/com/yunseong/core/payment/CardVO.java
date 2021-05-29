@@ -1,4 +1,4 @@
-package com.yunseong.core.payment.controller.vo;
+package com.yunseong.core.payment;
 
 import lombok.Data;
 

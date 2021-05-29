@@ -1,8 +1,8 @@
-package com.yunseong.core.payment.controller.vo;
+package com.yunseong.core.payment;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
-import net.minidev.json.annotate.JsonIgnore;
 
 import java.time.LocalDateTime;
 

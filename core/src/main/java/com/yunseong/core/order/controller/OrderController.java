@@ -1,8 +1,9 @@
 package com.yunseong.core.order.controller;
 
-import com.yunseong.core.order.controller.vo.CreateOrderRequest;
+import com.yunseong.core.order.CreateOrderRequest;
 import com.yunseong.core.order.service.OrderService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.OAuth2AuthenticatedPrincipal;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 
 @RestController
-@RequestMapping(value = "/orders")
+@RequestMapping(value = "/orders", produces = MediaType.APPLICATION_JSON_VALUE)
 @RequiredArgsConstructor
 public class OrderController {
 

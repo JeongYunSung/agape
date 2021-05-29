@@ -1,9 +1,8 @@
-package com.yunseong.core.payment.controller.vo;
+package com.yunseong.core.payment;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data

@@ -1,6 +1,6 @@
-package com.yunseong.core.order.controller.vo;
+package com.yunseong.core.order;
 
-import com.yunseong.core.payment.domain.PaymentMethod;
+import com.yunseong.core.payment.PaymentMethod;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

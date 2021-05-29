@@ -1,7 +1,7 @@
 package com.yunseong.core.order.service;
 
 import com.yunseong.core.order.domain.Order;
-import com.yunseong.core.payment.controller.vo.KakaoPayReadyVO;
+import com.yunseong.core.payment.KakaoPayReadyVO;
 import com.yunseong.core.payment.domain.Payment;
 import com.yunseong.core.payment.service.KakaoPayService;
 

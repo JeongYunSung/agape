@@ -1,6 +1,6 @@
 package com.yunseong.core.payment.service;
 
-import com.yunseong.core.payment.domain.PaymentMethod;
+import com.yunseong.core.payment.PaymentMethod;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 

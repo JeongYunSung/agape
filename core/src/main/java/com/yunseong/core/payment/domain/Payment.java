@@ -2,6 +2,7 @@ package com.yunseong.core.payment.domain;
 
 import com.yunseong.core.common.exception.UnsupportedStateTransitionException;
 import com.yunseong.core.order.domain.Order;
+import com.yunseong.core.payment.PaymentMethod;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;

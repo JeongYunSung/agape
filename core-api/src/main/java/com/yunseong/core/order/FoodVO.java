@@ -1,4 +1,4 @@
-package com.yunseong.core.order.controller.vo;
+package com.yunseong.core.order;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

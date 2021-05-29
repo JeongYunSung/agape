@@ -1,6 +1,6 @@
-package com.yunseong.core.order.controller.vo;
+package com.yunseong.core.order;
 
-import com.yunseong.core.payment.controller.vo.KakaoPayReadyVO;
+import com.yunseong.core.payment.KakaoPayReadyVO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
