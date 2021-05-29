@@ -1,5 +1,7 @@
 package com.yunseong.core.member.controller;
 
+import com.yunseong.core.member.CreateMemberRequest;
+import com.yunseong.core.member.CreateMemberResponse;
 import com.yunseong.core.member.service.MemberDetailsService;
 import com.yunseong.core.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +20,11 @@ public class MemberController {
 
     private final MemberService memberService;
     private final MemberDetailsService memberDetailsService;
+
+    @GetMapping("/login")
+    public ResponseEntity<?> login(@AuthenticationPrincipal OAuth2AuthenticatedPrincipal principal) {
+        return ResponseEntity.ok(principal != null && (principal.getAttribute("user_name") != null));
+    }
 
     @GetMapping("/profile")
     public ResponseEntity<?> profile(@AuthenticationPrincipal OAuth2AuthenticatedPrincipal principal) {

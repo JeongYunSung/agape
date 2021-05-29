@@ -1,6 +1,6 @@
 package com.yunseong.core.member.service;
 
-import com.yunseong.core.member.controller.CreateMemberRequest;
+import com.yunseong.core.member.CreateMemberRequest;
 import com.yunseong.core.member.domain.Member;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;

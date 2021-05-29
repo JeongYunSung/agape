@@ -2,6 +2,7 @@ package com.yunseong.core.member;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -22,4 +23,5 @@ public class ProfileMemberResponse {
         this.nickname = nickname;
         this.createdTime = createdTime.toLocalDate();
     }
+
 }

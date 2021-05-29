@@ -1,7 +1,8 @@
 package com.yunseong.core.member.service;
 
-import com.yunseong.core.member.controller.CreateMemberRequest;
-import com.yunseong.core.member.controller.CreateMemberResponse;
+import com.yunseong.core.member.CreateMemberRequest;
+import com.yunseong.core.member.CreateMemberResponse;
+import com.yunseong.core.member.domain.Member;
 import com.yunseong.core.member.domain.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -17,7 +18,7 @@ public class MemberService {
     private final MemberRepository memberRepository;
 
     public CreateMemberResponse signUp(CreateMemberRequest request) {
-        request.encode(this.passwordEncoder);
-        return new CreateMemberResponse(this.memberRepository.save(request.toMember()));
+        Member member = this.memberRepository.save(new Member(request.getEmail(), this.passwordEncoder.encode(request.getPassword()), request.getNickname()));
+        return new CreateMemberResponse(member.getId(), member.getEmail(), member.getNickname(), member.getCreatedTime());
     }
 }
