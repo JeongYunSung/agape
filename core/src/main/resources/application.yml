@@ -1,0 +1,26 @@
+server:
+  port: 8090
+
+spring:
+  datasource:
+    url: jdbc:mariadb://localhost:3306/agape?characterEncoding=UTF-8&serverTimezone=UTC
+    username: root
+    password: my366noy
+    driver-class-name: org.mariadb.jdbc.Driver
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+      use-new-id-generator-mappings: false
+
+payment:
+  kakaopay:
+    host: https://kapi.kakao.com
+    cnacel-uri: http://localhost:8090/payments/kakaoPaySuccess
+    success-uri: http://localhost:8090/payments/kakaoPayCancel
+    success-fail-uri: http://localhost:8090/payments/kakaoPaySuccessFail
+
+logging:
+  level:
+    root: INFO
+    org.springframework.security.oauth2: INFO

@@ -1,0 +1,5 @@
+rootProject.name = 'agape'
+include 'api-gateway'
+include 'core'
+include 'core-api'
+

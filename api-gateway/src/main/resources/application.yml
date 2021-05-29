@@ -1,0 +1,21 @@
+server:
+  port: 8080
+
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          agape:
+            client-id: agape
+            client-secret: secret
+            authorization_grant_type: password
+            scope: read
+            clientName: agape
+        provider:
+          agape:
+            token-uri: http://localhost:8090/oauth/token
+
+logging:
+  level:
+    root: INFO
