@@ -3,9 +3,9 @@ package com.yunseong.core.notification.service;
 import com.yunseong.core.common.exception.DifferentOwnerException;
 import com.yunseong.core.common.exception.EntityNotFoundException;
 import com.yunseong.core.member.service.MemberDetailsService;
-import com.yunseong.core.notification.controller.CreateNotificationRequest;
-import com.yunseong.core.notification.controller.CreateNotificationResponse;
-import com.yunseong.core.notification.controller.FindNotificationResponse;
+import com.yunseong.core.notification.CreateNotificationRequest;
+import com.yunseong.core.notification.CreateNotificationResponse;
+import com.yunseong.core.notification.FindNotificationResponse;
 import com.yunseong.core.notification.domain.Notification;
 import com.yunseong.core.notification.domain.NotificationRepository;
 import com.yunseong.core.order.domain.Order;
@@ -26,13 +26,13 @@ public class NotificationService {
 
     public CreateNotificationResponse sendNotification(String email, CreateNotificationRequest request) {
         Notification notification = this.notificationRepository.save(new Notification(this.memberDetailsService.findMember(email), request.getTitle(), request.getDescription()));
-        return new CreateNotificationResponse(notification);
+        return new CreateNotificationResponse(notification.getId(), notification.getTitle(), notification.getDescription());
     }
 
     @Transactional(readOnly = true)
     public Page<FindNotificationResponse> findNotifications(String email, Pageable pageable) {
         Page<Notification> page = this.notificationRepository.findAllByEmail(email, pageable);
-        return page.map(FindNotificationResponse::new);
+        return page.map(n -> new FindNotificationResponse(email, n.getTitle(), n.getDescription(), n.getCreatedTime().toLocalDate()));
     }
 
     @Transactional(readOnly = true)
@@ -41,7 +41,7 @@ public class NotificationService {
         if(!notification.getReceiver().getEmail().equals(email)) {
             throw new DifferentOwnerException(Order.class, email);
         }
-        return new FindNotificationResponse(notification);
+        return new FindNotificationResponse(email, notification.getTitle(), notification.getDescription(), notification.getCreatedTime().toLocalDate());
     }
 
     private Notification findNotification(long id) {

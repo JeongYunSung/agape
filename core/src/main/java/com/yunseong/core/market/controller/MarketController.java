@@ -10,13 +10,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 
 @RestController
-@RequestMapping(value = "/markets")
+@RequestMapping(value = "/markets", produces = MediaType.APPLICATION_JSON_VALUE)
 @RequiredArgsConstructor
 public class MarketController {
 

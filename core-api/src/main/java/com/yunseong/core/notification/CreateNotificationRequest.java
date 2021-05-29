@@ -1,4 +1,4 @@
-package com.yunseong.core.notification.controller;
+package com.yunseong.core.notification;
 
 import lombok.AccessLevel;
 import lombok.Getter;

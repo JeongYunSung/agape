@@ -1,6 +1,7 @@
 package com.yunseong.core.notification.controller;
 
 import com.yunseong.core.common.PageMetadata;
+import com.yunseong.core.notification.FindNotificationResponse;
 import com.yunseong.core.notification.service.NotificationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "/notifications", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/notifications", produces = MediaType.APPLICATION_JSON_VALUE)
 @RequiredArgsConstructor
 public class NotificationController {
 

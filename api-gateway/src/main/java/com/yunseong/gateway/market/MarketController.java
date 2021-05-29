@@ -6,13 +6,14 @@ import com.yunseong.core.member.CreateMemberResponse;
 import org.springframework.data.domain.Pageable;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 
 @RestController
-@RequestMapping(value = "/markets")
+@RequestMapping(value = "/markets", produces = MediaType.APPLICATION_JSON_VALUE)
 @RequiredArgsConstructor
 public class MarketController {
 
