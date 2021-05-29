@@ -1,10 +1,10 @@
 package com.yunseong.core.market.service;
 
 import com.yunseong.core.DomainArgumentResolver;
-import com.yunseong.core.market.controller.vo.CreateMarketRequest;
-import com.yunseong.core.market.controller.vo.FoodVO;
-import com.yunseong.core.market.controller.vo.MarketVO;
-import com.yunseong.core.market.controller.vo.RestaurantVO;
+import com.yunseong.core.market.CreateMarketRequest;
+import com.yunseong.core.market.FoodVO;
+import com.yunseong.core.market.MarketVO;
+import com.yunseong.core.market.RestaurantVO;
 import com.yunseong.core.market.domain.Food;
 import com.yunseong.core.market.domain.Market;
 import com.yunseong.core.market.domain.Restaurant;

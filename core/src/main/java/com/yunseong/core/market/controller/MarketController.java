@@ -1,9 +1,13 @@
 package com.yunseong.core.market.controller;
 
-import com.yunseong.core.config.PageMetadata;
-import com.yunseong.core.market.controller.vo.*;
+import com.yunseong.core.common.PageMetadata;
+import com.yunseong.core.market.CreateMarketRequest;
+import com.yunseong.core.market.FoodVO;
+import com.yunseong.core.market.MarketVO;
+import com.yunseong.core.market.RestaurantVO;
 import com.yunseong.core.market.service.MarketService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +24,8 @@ public class MarketController {
 
     @GetMapping
     public ResponseEntity<?> findMarkets(@PageableDefault Pageable pageable) {
-        return ResponseEntity.ok(new PageMetadata<>(this.marketService.findMarkets(pageable)));
+        Page<MarketVO> page = this.marketService.findMarkets(pageable);
+        return ResponseEntity.ok(new PageMetadata<>(page.getSize(), page.getNumber(), page.getTotalPages(), page.getContent()));
     }
 
     @GetMapping("/{id}")
@@ -45,7 +50,7 @@ public class MarketController {
         CreateMarketResponse response = this.marketService.openMarket(request);
         return ResponseEntity
                 .created(URI.create("/" + response.getId()))
-                .body(request);
+                .body(response);
     }
 
     @PutMapping("/{id}/restaurant")

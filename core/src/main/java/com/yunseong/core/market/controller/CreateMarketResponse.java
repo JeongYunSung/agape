@@ -1,4 +1,4 @@
-package com.yunseong.core.market.controller.vo;
+package com.yunseong.core.market.controller;
 
 import com.yunseong.core.market.domain.Market;
 import lombok.Getter;

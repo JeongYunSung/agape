@@ -1,8 +1,8 @@
 package com.yunseong.core.market.service;
 
 import com.yunseong.core.DomainArgumentSource;
-import com.yunseong.core.market.controller.vo.CreateMarketRequest;
-import com.yunseong.core.market.controller.vo.MarketVO;
+import com.yunseong.core.market.CreateMarketRequest;
+import com.yunseong.core.market.MarketVO;
 import com.yunseong.core.market.domain.MarketState;
 import org.junit.jupiter.params.ParameterizedTest;
 

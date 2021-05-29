@@ -2,7 +2,7 @@ package com.yunseong.core.market.domain;
 
 import com.yunseong.core.common.exception.FoodSoldOutException;
 import com.yunseong.core.common.exception.UnsupportedStateTransitionException;
-import com.yunseong.core.market.controller.vo.FoodVO;
+import com.yunseong.core.market.FoodVO;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;

@@ -2,9 +2,9 @@ package com.yunseong.core.market.domain;
 
 import com.yunseong.core.common.exception.EntityNotFoundException;
 import com.yunseong.core.common.exception.UnsupportedStateTransitionException;
-import com.yunseong.core.market.controller.vo.FoodVO;
-import com.yunseong.core.market.controller.vo.MarketVO;
-import com.yunseong.core.market.controller.vo.RestaurantVO;
+import com.yunseong.core.market.FoodVO;
+import com.yunseong.core.market.MarketVO;
+import com.yunseong.core.market.RestaurantVO;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;

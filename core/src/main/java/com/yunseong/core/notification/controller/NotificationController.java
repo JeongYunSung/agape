@@ -1,8 +1,9 @@
 package com.yunseong.core.notification.controller;
 
-import com.yunseong.core.config.PageMetadata;
+import com.yunseong.core.common.PageMetadata;
 import com.yunseong.core.notification.service.NotificationService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.MediaType;
@@ -38,6 +39,7 @@ public class NotificationController {
 
     @GetMapping
     public ResponseEntity<?> findNotifications(@AuthenticationPrincipal OAuth2AuthenticatedPrincipal principal, @PageableDefault Pageable pageable) {
-        return ResponseEntity.ok(new PageMetadata<>(this.notificationService.findNotifications(principal.getAttribute("user_name"), pageable)));
+        Page<FindNotificationResponse> page = this.notificationService.findNotifications(principal.getAttribute("user_name"), pageable);
+        return ResponseEntity.ok(new PageMetadata<>(page.getSize(), page.getNumber(), page.getTotalPages(), page.getContent()));
     }
 }

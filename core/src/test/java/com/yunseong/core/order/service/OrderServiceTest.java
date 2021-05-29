@@ -3,7 +3,7 @@ package com.yunseong.core.order.service;
 import com.yunseong.core.DomainArgumentSource;
 import com.yunseong.core.common.exception.FoodSoldOutException;
 import com.yunseong.core.common.exception.UnsupportedStateTransitionException;
-import com.yunseong.core.market.controller.vo.CreateMarketRequest;
+import com.yunseong.core.market.CreateMarketRequest;
 import com.yunseong.core.market.service.MarketRepositoryStub;
 import com.yunseong.core.market.service.MarketService;
 import com.yunseong.core.member.domain.Member;

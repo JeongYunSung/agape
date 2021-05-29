@@ -1,4 +1,4 @@
-package com.yunseong.core.market.controller.vo;
+package com.yunseong.core.market;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

@@ -2,13 +2,16 @@ package com.yunseong.core.market.service;
 
 import com.yunseong.core.common.exception.EntityNotFoundException;
 import com.yunseong.core.common.exception.UnsupportedStateTransitionException;
-import com.yunseong.core.market.controller.vo.*;
+import com.yunseong.core.market.*;
+import com.yunseong.core.market.controller.CreateMarketResponse;
 import com.yunseong.core.market.domain.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -19,13 +22,17 @@ public class MarketService {
 
     @Transactional(readOnly = true)
     public Page<MarketVO> findMarkets(Pageable pageable) {
-        return this.marketRepository.findAll(pageable).map(MarketVO::new);
+        return this.marketRepository.findAll(pageable).map(m -> new MarketVO(m.getTitle(), m.getDescription(), m.getLocation(), m.getCurrentAmount(),
+                m.getTargetAmount(), m.getStartTime(), m.getEndTime()));
     }
 
     @Transactional(readOnly = true)
     public FindMarketDetailResponse findMarket(long id) {
         Market market = this.getFetchMarket(id);
-        return new FindMarketDetailResponse(market);
+        return new FindMarketDetailResponse(new MarketVO(market.getTitle(), market.getDescription(), market.getLocation(), market.getCurrentAmount(),
+                market.getTargetAmount(), market.getStartTime(), market.getEndTime()),
+                new RestaurantVO(market.getRestaurant().getName(), market.getRestaurant().getDescription()),
+                market.getFoods().stream().map(food -> new FoodVO(food.getName(), food.getDescription(), food.getCount(), food.getAmount())).collect(Collectors.toList()));
     }
 
     public void updateMarket(long id, MarketVO marketVO) {
@@ -37,10 +44,12 @@ public class MarketService {
     }
 
     public CreateMarketResponse openMarket(CreateMarketRequest request) {
-        Restaurant restaurant = request.getRestaurant().toRestaurant();
-        Market market = request.getMarket().toMarket();
+        Restaurant restaurant = new Restaurant(request.getRestaurant().getName(), request.getRestaurant().getDescription());
+        Market market = new Market(request.getMarket().getTitle(), request.getMarket().getDescription(), request.getMarket().getLocation(),
+                request.getMarket().getCurrentAmount(), request.getMarket().getTargetAmount(), request.getMarket().getStartTime(), request.getMarket().getEndTime());
 
-        request.getFoods().stream().map(FoodVO::toFood).forEach(market::addFood);
+        request.getFoods().stream().map(food -> new Food(food.getName(), food.getDescription(), food.getCount(), food.getAmount()))
+                .forEach(market::addFood);
         market.registerRestaurant(restaurant);
 
         this.marketRepository.save(market);
@@ -62,7 +71,7 @@ public class MarketService {
     }
 
     public void addFood(long id, FoodVO food) {
-        getAvailableStateMarket(id).addFood(food.toFood());
+        getAvailableStateMarket(id).addFood(new Food(food.getName(), food.getDescription(), food.getCount(), food.getAmount()));
     }
 
     public void updateFood(long id, long fid, FoodVO food) {

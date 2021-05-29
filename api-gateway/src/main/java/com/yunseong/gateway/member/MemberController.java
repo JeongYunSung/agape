@@ -6,10 +6,8 @@ import com.yunseong.core.member.ProfileMemberResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 
 @RestController
@@ -29,7 +27,7 @@ public class MemberController {
                 .block();
     }
 
-    @PostMapping("/profile")
+    @GetMapping("/profile")
     public ResponseEntity<?> profile() {
         return this.webClient
                 .get()
@@ -40,10 +38,11 @@ public class MemberController {
     }
 
     @PostMapping("/signUp")
-    public ResponseEntity<?> signUp(@RequestBody CreateMemberRequest request) {
+    public ResponseEntity<CreateMemberResponse> signUp(@RequestBody CreateMemberRequest request) {
         return this.webClient
-                .get()
+                .post()
                 .uri("/members/signUp")
+                .body(BodyInserters.fromValue(request))
                 .retrieve()
                 .toEntity(CreateMemberResponse.class)
                 .block();
