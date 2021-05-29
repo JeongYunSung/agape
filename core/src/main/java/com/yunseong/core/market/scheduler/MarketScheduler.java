@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -16,6 +17,6 @@ public class MarketScheduler {
 
     @Scheduled(cron = "0 0 0 * * *")
     public void task() {
-        this.marketBatchService.batchUpdateMarket(LocalDateTime.parse(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))));
+        this.marketBatchService.batchUpdateMarket(LocalDate.parse(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))));
     }
 }

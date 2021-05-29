@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Service
 @Transactional
@@ -14,7 +14,7 @@ public class MarketBatchService {
 
     private final MarketRepository marketRepository;
 
-    public void batchUpdateMarket(LocalDateTime date) {
+    public void batchUpdateMarket(LocalDate date) {
         this.marketRepository.batchUpdateMarket(date);
     }
 }

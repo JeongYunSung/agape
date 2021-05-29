@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Optional;
 
 @Repository
@@ -16,13 +16,14 @@ public interface MarketRepository extends JpaRepository<Market, Long> {
     @Modifying
     @Query("update Market m set m.marketState = " +
             "case " +
-                "when m.marketState = com.yunseong.core.market.domain.MarketState.WAITING then 'OPENED' " +
-                "when m.marketState = com.yunseong.core.market.domain.MarketState.OPENED and m.currentAmount >= m.targetAmount then 'CLOSED' " +
-                "else 'CANCELED' " +
+                "when m.startTime <= :dateTime and m.marketState = com.yunseong.core.market.domain.MarketState.WAITING then 'OPENED' " +
+                "when m.endTime <= :dateTime and m.marketState = com.yunseong.core.market.domain.MarketState.OPENED and m.currentAmount >= m.targetAmount then 'CLOSED' " +
+                "when m.endTime <= :dateTime and m.marketState = com.yunseong.core.market.domain.MarketState.OPENED and m.currentAmount < m.targetAmount then 'CANCELED' " +
+                "else m.marketState " +
             "end " +
-            "where m.endTime <= :dateTime " +
+            "where m.startTime <= :dateTime " +
                 "and m.marketState in (com.yunseong.core.market.domain.MarketState.WAITING, com.yunseong.core.market.domain.MarketState.OPENED)")
-    void batchUpdateMarket(LocalDateTime dateTime);
+    void batchUpdateMarket(LocalDate dateTime);
 
     @Query("select distinct m from Market m inner join fetch m.foods inner join fetch m.restaurant where m.id = :id and m.marketState <> 'DELETE'")
     Optional<Market> findFetchById(long id);
