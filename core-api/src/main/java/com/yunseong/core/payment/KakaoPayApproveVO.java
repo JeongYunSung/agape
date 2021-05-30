@@ -1,11 +1,14 @@
 package com.yunseong.core.payment;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Data
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class KakaoPayApproveVO {
 
     private String aid, tid, cid, sid;

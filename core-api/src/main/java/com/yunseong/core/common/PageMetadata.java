@@ -1,16 +1,19 @@
 package com.yunseong.core.common;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Getter
 @AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class PageMetadata<T> {
 
-    private final int size;
-    private final int number;
-    private final int totalSize;
-    private final List<T> t;
+    private int size;
+    private int number;
+    private int totalSize;
+    private List<T> content;
 }

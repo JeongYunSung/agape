@@ -1,10 +1,7 @@
 package com.yunseong.core.market.controller;
 
 import com.yunseong.core.common.PageMetadata;
-import com.yunseong.core.market.CreateMarketRequest;
-import com.yunseong.core.market.FoodVO;
-import com.yunseong.core.market.MarketVO;
-import com.yunseong.core.market.RestaurantVO;
+import com.yunseong.core.market.*;
 import com.yunseong.core.market.service.MarketService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

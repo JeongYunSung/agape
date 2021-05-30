@@ -1,6 +1,6 @@
-package com.yunseong.core.order;
+package com.yunseong.core.market;
 
-import com.yunseong.core.payment.KakaoPayReadyVO;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,8 +9,10 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class CreateOrderResponse {
+public class CreateMarketResponse {
 
+    @JsonIgnore
     private long id;
-    private KakaoPayReadyVO kakaopay;
+    private String title;
+    private String description;
 }

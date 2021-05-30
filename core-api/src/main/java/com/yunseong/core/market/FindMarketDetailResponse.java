@@ -1,10 +1,12 @@
 package com.yunseong.core.market;
 
-import lombok.AllArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
+@Getter
 @AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class FindMarketDetailResponse {
 
     private MarketVO market;

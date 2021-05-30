@@ -5,6 +5,7 @@ import com.yunseong.core.market.*;
 import com.yunseong.core.member.CreateMemberResponse;
 import org.springframework.data.domain.Pageable;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +28,7 @@ public class MarketController {
                         .path("/markets")
                         .queryParam("page", pageable.getPageNumber())
                         .queryParam("size", pageable.getPageSize())
-                        .queryParam("sort", pageable.getSort())
+                        .queryParam("sort", pageable.getSort() == Sort.unsorted() ? "" : pageable.getSort().toString())
                         .build()
                 )
                 .retrieve()
@@ -71,7 +72,7 @@ public class MarketController {
                 .uri("/markets")
                 .body(BodyInserters.fromValue(request))
                 .retrieve()
-                .toEntity(CreateMemberResponse.class)
+                .toEntity(CreateMarketResponse.class)
                 .block();
     }
 

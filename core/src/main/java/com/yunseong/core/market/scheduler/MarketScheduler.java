@@ -15,7 +15,8 @@ public class MarketScheduler {
 
     private final MarketBatchService marketBatchService;
 
-    @Scheduled(cron = "0 0 0 * * *")
+    @Scheduled(cron = "0 */2 * * * *")
+//    @Scheduled(cron = "0 0 0 * * *")
     public void task() {
         this.marketBatchService.batchUpdateMarket(LocalDate.parse(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))));
     }

@@ -1,8 +1,11 @@
 package com.yunseong.core.payment;
 
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class CardVO {
 
     private String purchase_corp, purchase_corp_code;

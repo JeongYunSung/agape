@@ -130,7 +130,7 @@ public class KakaoPayService implements PaymentService {
     private HttpHeaders getHeaders() {
         HttpHeaders httpHeaders = new HttpHeaders();
 
-        httpHeaders.add(HttpHeaders.AUTHORIZATION, "KakaoAK 변경된 어드민키로 재적용 해야 함");
+        httpHeaders.add(HttpHeaders.AUTHORIZATION, "KakaoAK ");
         httpHeaders.add(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
         httpHeaders.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_FORM_URLENCODED_VALUE);
 

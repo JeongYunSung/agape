@@ -2,11 +2,14 @@ package com.yunseong.core.payment;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Data
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class KakaoPayReadyVO {
 
     @JsonIgnore

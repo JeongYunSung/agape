@@ -4,6 +4,7 @@ import com.yunseong.core.common.PageMetadata;
 import com.yunseong.core.notification.FindNotificationResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -38,7 +39,7 @@ public class NotificationController {
                         .path("/notifications")
                         .queryParam("page", pageable.getPageNumber())
                         .queryParam("size", pageable.getPageSize())
-                        .queryParam("sort", pageable.getSort())
+                        .queryParam("sort", pageable.getSort() == Sort.unsorted() ? "" : pageable.getSort().toString())
                         .build()
                 )
                 .retrieve()

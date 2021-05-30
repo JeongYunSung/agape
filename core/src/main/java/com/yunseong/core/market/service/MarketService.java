@@ -3,7 +3,7 @@ package com.yunseong.core.market.service;
 import com.yunseong.core.common.exception.EntityNotFoundException;
 import com.yunseong.core.common.exception.UnsupportedStateTransitionException;
 import com.yunseong.core.market.*;
-import com.yunseong.core.market.controller.CreateMarketResponse;
+import com.yunseong.core.market.CreateMarketResponse;
 import com.yunseong.core.market.domain.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -54,7 +54,7 @@ public class MarketService {
 
         this.marketRepository.save(market);
 
-        return new CreateMarketResponse(market);
+        return new CreateMarketResponse(market.getId(), market.getTitle(), market.getDescription());
     }
 
     @Transactional(readOnly = true)

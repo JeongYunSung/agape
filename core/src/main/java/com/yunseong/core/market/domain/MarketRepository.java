@@ -16,9 +16,9 @@ public interface MarketRepository extends JpaRepository<Market, Long> {
     @Modifying
     @Query("update Market m set m.marketState = " +
             "case " +
-                "when m.startTime <= :dateTime and m.marketState = com.yunseong.core.market.domain.MarketState.WAITING then 'OPENED' " +
                 "when m.endTime <= :dateTime and m.marketState = com.yunseong.core.market.domain.MarketState.OPENED and m.currentAmount >= m.targetAmount then 'CLOSED' " +
                 "when m.endTime <= :dateTime and m.marketState = com.yunseong.core.market.domain.MarketState.OPENED and m.currentAmount < m.targetAmount then 'CANCELED' " +
+                "when m.startTime <= :dateTime and m.marketState = com.yunseong.core.market.domain.MarketState.WAITING then 'OPENED' " +
                 "else m.marketState " +
             "end " +
             "where m.startTime <= :dateTime " +
