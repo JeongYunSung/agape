@@ -1,6 +1,7 @@
 package com.yunseong.gateway.order;
 
 import com.yunseong.core.order.CreateOrderRequest;
+import com.yunseong.core.order.CreateOrderResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -31,6 +32,7 @@ public class OrderController {
                 .uri("/orders")
                 .body(BodyInserters.fromValue(request))
                 .retrieve()
-                .toBodilessEntity().block();
+                .toEntity(CreateOrderResponse.class)
+                .block();
     }
 }

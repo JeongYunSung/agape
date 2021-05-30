@@ -1,19 +1,17 @@
 package com.yunseong.core.payment;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Data
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class KakaoPayReadyVO {
+@NoArgsConstructor
+@AllArgsConstructor
+public class KakaoPayReadyResponse {
 
-    @JsonIgnore
-    private String tid;
     private String next_redirect_app_url;
     private String next_redirect_mobile_url;
     private String next_redirect_pc_url;

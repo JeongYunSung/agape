@@ -10,12 +10,12 @@ public class PaymentServiceFactory {
 
     private final KakaoPayService kakaoPayService;
 
-    public PaymentService getService(PaymentMethod method) {
-        switch (method) {
-            case KAKAO_PAY:
-                return kakaoPayService;
-            default:
-                return null;
-        }
-    }
+//    public PaymentService getService(PaymentMethod method) {
+//        switch (method) {
+//            case KAKAO_PAY:
+//                return kakaoPayService;
+//            default:
+//                return null;
+//        }
+//    }
 }

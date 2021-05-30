@@ -16,8 +16,8 @@ spring:
 payment:
   kakaopay:
     host: https://kapi.kakao.com
-    cnacel-uri: http://localhost:8090/payments/kakaoPaySuccess
-    success-uri: http://localhost:8090/payments/kakaoPayCancel
+    cancel-uri: http://localhost:8090/payments/kakaoPayCancel
+    success-uri: http://localhost:8090/payments/kakaoPaySuccess
     success-fail-uri: http://localhost:8090/payments/kakaoPaySuccessFail
 
 logging:

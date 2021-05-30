@@ -1,6 +1,7 @@
 package com.yunseong.core.order;
 
-import com.yunseong.core.payment.KakaoPayReadyVO;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.yunseong.core.payment.KakaoPayReadyResponse;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,6 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class CreateOrderResponse {
 
+    @JsonIgnore
     private long id;
-    private KakaoPayReadyVO kakaopay;
+    private KakaoPayReadyResponse kakaopay;
 }

@@ -1,6 +1,7 @@
 package com.yunseong.core.order.controller;
 
 import com.yunseong.core.order.CreateOrderRequest;
+import com.yunseong.core.order.CreateOrderResponse;
 import com.yunseong.core.order.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -28,8 +29,9 @@ public class OrderController {
     @PostMapping
     public ResponseEntity<?> requestOrder(@AuthenticationPrincipal OAuth2AuthenticatedPrincipal principal,
                                           @RequestBody CreateOrderRequest request) {
+        CreateOrderResponse response = this.orderService.requestOrder(principal.getAttribute("user_name"), request);
         return ResponseEntity
-                .created(URI.create("/" + this.orderService.requestOrder(principal.getAttribute("user_name"), request).getId()))
-                .build();
+                .created(URI.create("/" + response.getId()))
+                .body(response);
     }
 }

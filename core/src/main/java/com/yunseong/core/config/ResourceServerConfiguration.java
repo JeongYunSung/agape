@@ -31,6 +31,7 @@ public class ResourceServerConfiguration extends WebSecurityConfigurerAdapter {
                         .antMatchers("/").anonymous()
                         .antMatchers(HttpMethod.POST, "/members/signUp").anonymous()
                         .antMatchers(HttpMethod.POST, "/members/signIn").anonymous()
+                        .antMatchers(HttpMethod.GET, "/payments/**").anonymous()
                         .anyRequest().authenticated()
                 )
                 .oauth2ResourceServer(oauth2 ->

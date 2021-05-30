@@ -15,7 +15,7 @@ public class PaymentController {
 
     private final KakaoPayService paymentService;
 
-    @GetMapping("/kakaoPayCancel")
+    @GetMapping("/kakaoPayCancel/{id}")
     public ResponseEntity<?> kakaoPayCancel(@PathVariable long id) {
         KakaoPayOrderVO kakaoPayOrderVO = paymentService.order(id);
         if (kakaoPayOrderVO.getStatus().equals("CANCEL_PAYMENT")) {
@@ -24,17 +24,16 @@ public class PaymentController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/kakaoPayFailure")
+    @GetMapping("/kakaoPayFailure/{id}")
     public ResponseEntity<?> kakaoPayFailure(@PathVariable long id) {
         this.paymentService.cancel(id);
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/kakaoPaySuccess")
+    @GetMapping("/kakaoPaySuccess/{id}")
     public ResponseEntity<?> kakaoPaySuccess(@PathVariable long id,
-                                             @AuthenticationPrincipal OAuth2AuthenticatedPrincipal principal,
                                              @RequestParam("pg_token") String pg_token) {
-        this.paymentService.approve(principal.getAttribute("user_name"), id, pg_token);
+        this.paymentService.approve(id, pg_token);
         return ResponseEntity.noContent().build();
     }
 }

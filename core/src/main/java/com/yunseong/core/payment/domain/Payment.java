@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @Getter
 @EntityListeners(AuditingEntityListener.class)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
+@RequiredArgsConstructor
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Payment {
 
@@ -23,15 +23,15 @@ public class Payment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NonNull
-    private String tid;
-
     @OneToOne(fetch = FetchType.LAZY)
     private Order order;
 
     @NonNull
+    private String tid;
+
+    @NonNull
     @Enumerated(value = EnumType.STRING)
-    protected PaymentMethod paymentMethod;
+    private PaymentMethod paymentMethod;
 
     @Enumerated(value = EnumType.STRING)
     private PaymentState paymentState = PaymentState.READY;

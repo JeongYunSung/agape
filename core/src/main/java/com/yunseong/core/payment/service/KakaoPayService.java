@@ -22,14 +22,13 @@ import java.net.URISyntaxException;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class KakaoPayService implements PaymentService {
+public class KakaoPayService {
 
     private final PaymentRepository paymentRepository;
     private final PaymentConfiguration paymentConfiguration;
     private final RestTemplate restTemplate;
 
-    @Override
-    public KakaoPayReadyVO ready(Order order) {
+    public KakaoPayReadyResponse ready(Order order) {
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
 
         params.add("cid", "TC0ONETIME");
@@ -45,26 +44,26 @@ public class KakaoPayService implements PaymentService {
 
         HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<>(params, getHeaders());
 
-        KakaoPayReadyVO kakaoPayReadyVO;
+        KakaoPayReadyRequest kakaoPayReadyVO;
         try {
-            kakaoPayReadyVO = this.restTemplate.postForObject(new URI(this.paymentConfiguration.getKakaopay().getHost() + "/v1/payment/ready"), body, KakaoPayReadyVO.class);
+            kakaoPayReadyVO = this.restTemplate.postForObject(new URI(this.paymentConfiguration.getKakaopay().getHost() + "/v1/payment/ready"), body, KakaoPayReadyRequest.class);
         } catch (URISyntaxException e) {
             throw new NotConnectException("카카오페이 서버에 연결할 수 없습니다.");
         }
-        KakaoPayPayment kakaopay = new KakaoPayPayment(kakaoPayReadyVO.getTid(), PaymentMethod.KAKAO_PAY);
+        Payment kakaopay = new Payment(kakaoPayReadyVO.getTid(), PaymentMethod.KAKAO_PAY);
         kakaopay.setOrder(order);
         this.paymentRepository.save(kakaopay);
-        return kakaoPayReadyVO;
+        return new KakaoPayReadyResponse(kakaoPayReadyVO.getNext_redirect_app_url(), kakaoPayReadyVO.getNext_redirect_mobile_url(), kakaoPayReadyVO.getNext_redirect_pc_url(),kakaoPayReadyVO.getCreated_at());
     }
 
-    public void approve(String email, long id, String pg_token) {
-        Payment payment = getPayment(id);
+    public void approve(long id, String pg_token) {
+        Payment payment = this.paymentRepository.findMemberById(id).orElseThrow(() -> new EntityNotFoundException(Payment.class, String.valueOf(id)));
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
 
         params.add("cid", "TC0ONETIME");
         params.add("tid", payment.getTid());
         params.add("partner_order_id", String.valueOf(payment.getId()));
-        params.add("partner_user_id", email);
+        params.add("partner_user_id", payment.getOrder().getOrderer().getEmail());
         params.add("pg_token", pg_token);
 
         HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<>(params, getHeaders());
@@ -87,7 +86,6 @@ public class KakaoPayService implements PaymentService {
         this.refund(this.paymentRepository.findFetchById(id).orElseThrow(() -> new EntityNotFoundException(Payment.class, String.valueOf(id))));
     }
 
-    @Override
     public void refund(Payment payment) {
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
 
@@ -130,7 +128,7 @@ public class KakaoPayService implements PaymentService {
     private HttpHeaders getHeaders() {
         HttpHeaders httpHeaders = new HttpHeaders();
 
-        httpHeaders.add(HttpHeaders.AUTHORIZATION, "KakaoAK ");
+        httpHeaders.add(HttpHeaders.AUTHORIZATION, "KakaoAK 43e9bb26c7d577a662665d05037364cf");
         httpHeaders.add(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
         httpHeaders.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_FORM_URLENCODED_VALUE);
 

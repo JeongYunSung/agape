@@ -10,6 +10,7 @@ import com.yunseong.core.order.FoodVO;
 import com.yunseong.core.order.domain.Order;
 import com.yunseong.core.order.domain.OrderLine;
 import com.yunseong.core.order.domain.OrderRepository;
+import com.yunseong.core.payment.service.KakaoPayService;
 import com.yunseong.core.payment.service.PaymentServiceFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,7 +25,7 @@ public class OrderService {
 
     private final MemberDetailsService memberDetailsService;
     private final MarketService marketService;
-    private final PaymentServiceFactory paymentServiceFactory;
+    private final KakaoPayService kakaoPayService;
 
     public CreateOrderResponse requestOrder(String email, CreateOrderRequest request) {
         Order order = new Order(this.memberDetailsService.findMember(email));
@@ -36,7 +37,7 @@ public class OrderService {
         }
         this.orderRepository.save(order);
 
-        return new CreateOrderResponse(order.getId(), this.paymentServiceFactory.getService(request.getPaymentMethod()).ready(order));
+        return new CreateOrderResponse(order.getId(), this.kakaoPayService.ready(order));
     }
 
     public void cancelOrder(String email, long id) {
@@ -44,7 +45,7 @@ public class OrderService {
         if(!order.getOrderer().getEmail().equals(email)) {
             throw new DifferentOwnerException(Order.class, email);
         }
-        this.paymentServiceFactory.getService(order.getPayment().getPaymentMethod()).refund(order.getPayment());
+        this.kakaoPayService.refund(order.getPayment());
         order.cancel();
     }
 
