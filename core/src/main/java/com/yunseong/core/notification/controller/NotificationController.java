@@ -11,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.OAuth2AuthenticatedPrincipal;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,14 +34,14 @@ public class NotificationController {
 //    }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> findNotification(@AuthenticationPrincipal OAuth2AuthenticatedPrincipal principal,
+    public ResponseEntity<?> findNotification(JwtAuthenticationToken principal,
                                               @PathVariable long id) {
-        return ResponseEntity.ok(this.notificationService.findNotification(principal.getAttribute("user_name"), id));
+        return ResponseEntity.ok(this.notificationService.findNotification((String)principal.getTokenAttributes().get("user_name"), id));
     }
 
     @GetMapping
-    public ResponseEntity<?> findNotifications(@AuthenticationPrincipal OAuth2AuthenticatedPrincipal principal, @PageableDefault Pageable pageable) {
-        Page<FindNotificationResponse> page = this.notificationService.findNotifications(principal.getAttribute("user_name"), pageable);
+    public ResponseEntity<?> findNotifications(JwtAuthenticationToken principal, @PageableDefault Pageable pageable) {
+        Page<FindNotificationResponse> page = this.notificationService.findNotifications((String) principal.getTokenAttributes().get("user_name"), pageable);
         return ResponseEntity.ok(new PageMetadata<>(page.getSize(), page.getNumber(), page.getTotalPages(), page.getContent()));
     }
 }

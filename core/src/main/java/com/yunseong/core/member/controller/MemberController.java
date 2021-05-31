@@ -8,7 +8,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.OAuth2AuthenticatedPrincipal;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -22,13 +24,14 @@ public class MemberController {
     private final MemberDetailsService memberDetailsService;
 
     @GetMapping("/login")
-    public ResponseEntity<?> login(@AuthenticationPrincipal OAuth2AuthenticatedPrincipal principal) {
-        return ResponseEntity.ok(principal != null && (principal.getAttribute("user_name") != null));
+    public ResponseEntity<?> login(JwtAuthenticationToken jwtAuthenticationToken) {
+        return ResponseEntity.ok(jwtAuthenticationToken != null && jwtAuthenticationToken.getTokenAttributes().get("user_name") != null);
+//        return ResponseEntity.ok(principal != null && (principal.getAttribute("user_name") != null));
     }
 
     @GetMapping("/profile")
-    public ResponseEntity<?> profile(@AuthenticationPrincipal OAuth2AuthenticatedPrincipal principal) {
-        return ResponseEntity.ok(this.memberDetailsService.profile(principal == null ? "admin" : principal.getAttribute("user_name")));
+    public ResponseEntity<?> profile(JwtAuthenticationToken principal) {
+        return ResponseEntity.ok(this.memberDetailsService.profile(principal == null ? "admin" : (String)principal.getTokenAttributes().get("user_name")));
     }
 
     @PostMapping(value = "/signUp", consumes = MediaType.APPLICATION_JSON_VALUE)

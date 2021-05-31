@@ -1,6 +1,7 @@
 HELP.md
 .gradle
 build/
+**/resources/agape-jwt.jks
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/

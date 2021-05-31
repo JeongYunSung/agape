@@ -1,4 +1,5 @@
 server:
+#  port: ${random.int(8090,8092)}
   port: 8090
 
 spring:
@@ -12,6 +13,11 @@ spring:
     hibernate:
       ddl-auto: update
       use-new-id-generator-mappings: false
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:8090/.well-known/jwks.json
 
 payment:
   kakaopay:

@@ -6,8 +6,7 @@ import com.yunseong.core.order.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.oauth2.core.OAuth2AuthenticatedPrincipal;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -21,15 +20,15 @@ public class OrderController {
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<?> cancelOrder(@PathVariable long id,
-                                         @AuthenticationPrincipal OAuth2AuthenticatedPrincipal principal) {
-        this.orderService.cancelOrder(principal.getAttribute("user_name"), id);
+                                         JwtAuthenticationToken principal) {
+        this.orderService.cancelOrder((String) principal.getTokenAttributes().get("user_name"), id);
         return ResponseEntity.noContent().build();
     }
 
     @PostMapping
-    public ResponseEntity<?> requestOrder(@AuthenticationPrincipal OAuth2AuthenticatedPrincipal principal,
+    public ResponseEntity<?> requestOrder(JwtAuthenticationToken principal,
                                           @RequestBody CreateOrderRequest request) {
-        CreateOrderResponse response = this.orderService.requestOrder(principal.getAttribute("user_name"), request);
+        CreateOrderResponse response = this.orderService.requestOrder((String) principal.getTokenAttributes().get("user_name"), request);
         return ResponseEntity
                 .created(URI.create("/" + response.getId()))
                 .body(response);
