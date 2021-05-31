@@ -1,12 +1,11 @@
 server:
-#  port: ${random.int(8090,8092)}
   port: 8090
 
 spring:
   datasource:
-    url: jdbc:mariadb://localhost:3306/agape?characterEncoding=UTF-8&serverTimezone=UTC
-    username: root
-    password: my366noy
+    url: jdbc:mariadb://${mariadb_address:localhost:3306}/agape?characterEncoding=UTF-8&serverTimezone=UTC
+    username: ${mariadb_username:root}
+    password: ${mariadb_password:my366noy}
     driver-class-name: org.mariadb.jdbc.Driver
   jpa:
     open-in-view: false
@@ -17,14 +16,14 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          jwk-set-uri: http://localhost:8090/.well-known/jwks.json
+          jwk-set-uri: http://${server.address:localhost}:${server.port}/.well-known/jwks.json
 
 payment:
   kakaopay:
     host: https://kapi.kakao.com
-    cancel-uri: http://localhost:8090/payments/kakaoPayCancel
-    success-uri: http://localhost:8090/payments/kakaoPaySuccess
-    success-fail-uri: http://localhost:8090/payments/kakaoPaySuccessFail
+    cancel-uri: http://${server.address:localhost}:${server.port}/payments/kakaoPayCancel
+    success-uri: http://${server.address:localhost}:${server.port}/payments/kakaoPaySuccess
+    success-fail-uri: http://${server.address:localhost}:${server.port}/payments/kakaoPaySuccessFail
 
 logging:
   level:

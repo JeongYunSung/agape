@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.security.oauth2.client.*;
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.security.oauth2.client.web.DefaultOAuth2AuthorizedClientManager;
@@ -23,6 +24,8 @@ import java.util.function.Function;
 @RequiredArgsConstructor
 public class ClientConfiguration {
 
+    private final Environment environment;
+
     @Bean
     @LoadBalanced
     public WebClient webClient(OAuth2AuthorizedClientManager oAuth2AuthorizedClientManager) {
@@ -31,7 +34,7 @@ public class ClientConfiguration {
         oAuth2AuthorizedClientExchangeFilterFunction.setDefaultClientRegistrationId("agape");
         return WebClient.builder()
                 .apply(oAuth2AuthorizedClientExchangeFilterFunction.oauth2Configuration())
-                .baseUrl("http://localhost:8090")
+                .baseUrl("http://" + environment.getProperty("token_address"))
                 .build();
     }
 

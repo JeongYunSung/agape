@@ -1,0 +1,85 @@
+version: '3.7'
+services:
+  mariadb:
+    container_name: agape-mariadb
+    image: mariadb
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=my366noy
+      - MYSQL_DATABASE=agape
+      - TZ=Asia/Seoul
+    networks:
+      - agape_network
+
+  core:
+    container_name: core
+    build:
+      context: ./
+      dockerfile: core/Dockerfile
+    image: core
+    ports:
+      - 8090:8090
+    environment:
+      - MARIADB_ADDRESS=agape-mariadb:3306
+    restart: on-failure
+    depends_on:
+      - mariadb
+    networks:
+      - agape_network
+
+  core1:
+    container_name: core1
+    build:
+      context: ./
+      dockerfile: core/Dockerfile
+    image: core
+    ports:
+      - 8091:8091
+    environment:
+      - MARIADB_ADDRESS=agape-mariadb
+      - SERVER_PORT=8091
+    restart: on-failure
+    depends_on:
+      - mariadb
+    networks:
+      - agape_network
+
+  core2:
+    container_name: core2
+    build:
+      context: ./
+      dockerfile: core/Dockerfile
+    image: core
+    ports:
+      - 8092:8092
+    environment:
+      - MARIADB_ADDRESS=agape-mariadb
+      - SERVER_PORT=8092
+    restart: on-failure
+    depends_on:
+      - mariadb
+    networks:
+      - agape_network
+
+  api-gateway:
+    container_name: api-gateway
+    build:
+      context: ./
+      dockerfile: api-gateway/Dockerfile
+    image: api-gateway
+    ports:
+      - 8080:8080
+    environment:
+      - TOKEN_ADDRESS=core:8090
+      - CORE_LIST=core:8090,core1:8091,core2:8092
+    depends_on:
+      - core
+      - core1
+      - core2
+    networks:
+      - agape_network
+
+networks:
+  agape_network:
+    driver: bridge

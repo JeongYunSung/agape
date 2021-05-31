@@ -15,7 +15,7 @@ public class GatewayConfiguration {
 
     @Bean
     public IPing ribbonPing(IClientConfig config) {
-        return new PingUrl(false, "/");
+        return new PingUrl(false, "/actuator/health");
     }
 
     @Bean
