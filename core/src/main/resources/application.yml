@@ -2,6 +2,8 @@ server:
   port: 8090
 
 spring:
+  application:
+    name: core
   datasource:
     url: jdbc:mariadb://${mariadb_address:localhost:3306}/agape?characterEncoding=UTF-8&serverTimezone=UTC
     username: ${mariadb_username:root}

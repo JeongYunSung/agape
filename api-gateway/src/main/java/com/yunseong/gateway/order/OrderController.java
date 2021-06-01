@@ -20,7 +20,7 @@ public class OrderController {
     public ResponseEntity<?> cancelOrder(@PathVariable long id) {
         return this.webClient
                 .get()
-                .uri("/orders/" + id)
+                .uri("http://gateway/orders/" + id)
                 .retrieve()
                 .toBodilessEntity().block();
     }
@@ -29,7 +29,7 @@ public class OrderController {
     public ResponseEntity<?> requestOrder(@RequestBody CreateOrderRequest request) {
         return this.webClient
                 .post()
-                .uri("/orders")
+                .uri("http://gateway/orders")
                 .body(BodyInserters.fromValue(request))
                 .retrieve()
                 .toEntity(CreateOrderResponse.class)

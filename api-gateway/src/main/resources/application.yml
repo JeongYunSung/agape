@@ -2,6 +2,8 @@ server:
   port: 8080
 
 spring:
+  application:
+    name: api-gateway
   security:
     oauth2:
       client:
@@ -14,15 +16,15 @@ spring:
             clientName: agape
         provider:
           agape:
-            token-uri: http://${token_address}/oauth/token
+            token-uri: http://${TOKEN_ADDRESS:localhost:8090}/oauth/token
+  cloud:
+    loadbalancer:
+      servers: ${CORE_LIST:localhost:8090}
+      retry:
+        max-retries-on-next-service-instance: 1
+      health-check:
+        interval: 15000
 
 logging:
   level:
     root: INFO
-
-gateway:
-  ribbon:
-    eureka:
-      enabled: false
-    listOfServers: ${core_list}
-    ServerListRefreshInterval: 15000

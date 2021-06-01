@@ -1,12 +1,12 @@
 package com.yunseong.gateway;
 
-import com.yunseong.gateway.config.GatewayConfiguration;
+import com.yunseong.gateway.config.LoadBalanceServerConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.netflix.ribbon.RibbonClient;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 @SpringBootApplication
-@RibbonClient(name = "gateway", configuration = GatewayConfiguration.class)
+@EnableConfigurationProperties(LoadBalanceServerConfiguration.class)
 public class GatewayApplication {
 
     public static void main(String[] args) {

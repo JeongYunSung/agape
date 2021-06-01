@@ -2,9 +2,9 @@ package com.yunseong.gateway.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
+import org.springframework.cloud.loadbalancer.annotation.LoadBalancerClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.env.Environment;
 import org.springframework.security.oauth2.client.*;
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.security.oauth2.client.web.DefaultOAuth2AuthorizedClientManager;
@@ -22,19 +22,23 @@ import java.util.function.Function;
 
 @Configuration
 @RequiredArgsConstructor
+@LoadBalancerClient(name = "core", configuration = CoreLoadBalanceConfiguration.class)
 public class ClientConfiguration {
 
-    private final Environment environment;
+    @LoadBalanced
+    @Bean
+    public WebClient.Builder webClientBuilder() {
+        return  WebClient.builder();
+    }
 
     @Bean
-    @LoadBalanced
     public WebClient webClient(OAuth2AuthorizedClientManager oAuth2AuthorizedClientManager) {
         ServletOAuth2AuthorizedClientExchangeFilterFunction oAuth2AuthorizedClientExchangeFilterFunction
                 = new ServletOAuth2AuthorizedClientExchangeFilterFunction(oAuth2AuthorizedClientManager);
         oAuth2AuthorizedClientExchangeFilterFunction.setDefaultClientRegistrationId("agape");
-        return WebClient.builder()
+        return webClientBuilder()
+                .baseUrl("http://core/")
                 .apply(oAuth2AuthorizedClientExchangeFilterFunction.oauth2Configuration())
-                .baseUrl("http://" + environment.getProperty("token_address"))
                 .build();
     }
 

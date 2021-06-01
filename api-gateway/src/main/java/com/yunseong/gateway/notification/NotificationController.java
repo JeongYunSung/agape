@@ -25,7 +25,7 @@ public class NotificationController {
     public ResponseEntity<?> findNotification(@PathVariable long id) {
         return this.webClient
                 .get()
-                .uri("/notifications/" + id)
+                .uri("http://gateway/notifications/" + id)
                 .retrieve()
                 .toEntity(FindNotificationResponse.class)
                 .block();
@@ -36,7 +36,7 @@ public class NotificationController {
         return this.webClient
                 .get()
                 .uri(uriBuilder -> uriBuilder
-                        .path("/notifications")
+                        .path("http://gateway/notifications")
                         .queryParam("page", pageable.getPageNumber())
                         .queryParam("size", pageable.getPageSize())
                         .queryParam("sort", pageable.getSort() == Sort.unsorted() ? "" : pageable.getSort().toString())

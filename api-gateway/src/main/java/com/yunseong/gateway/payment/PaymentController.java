@@ -16,7 +16,7 @@ public class PaymentController {
     public ResponseEntity<?> kakaoPayCancel(@PathVariable long id) {
         return this.webClient
                 .get()
-                .uri("/kakaoPayCancel/" + id)
+                .uri("http://gateway/kakaoPayCancel/" + id)
                 .retrieve()
                 .toBodilessEntity().block();
     }
@@ -25,7 +25,7 @@ public class PaymentController {
     public ResponseEntity<?> kakaoPayFailure(@PathVariable long id) {
         return this.webClient
                 .get()
-                .uri("/kakaoPayFailure/" + id)
+                .uri("http://gateway/kakaoPayFailure/" + id)
                 .retrieve()
                 .toBodilessEntity().block();
     }
@@ -36,7 +36,7 @@ public class PaymentController {
         return this.webClient
                 .get()
                 .uri(uriBuilder -> uriBuilder
-                        .path("/kakaoPaySuccess/" + id)
+                        .path("http://gateway/kakaoPaySuccess/" + id)
                         .queryParam("pg_token", pg_token)
                         .build())
                 .retrieve()

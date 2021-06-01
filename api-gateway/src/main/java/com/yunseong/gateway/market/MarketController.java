@@ -25,7 +25,7 @@ public class MarketController {
         return this.webClient
                 .get()
                 .uri(uriBuilder -> uriBuilder
-                        .path("/markets")
+                        .path("http://gateway/markets")
                         .queryParam("page", pageable.getPageNumber())
                         .queryParam("size", pageable.getPageSize())
                         .queryParam("sort", pageable.getSort() == Sort.unsorted() ? "" : pageable.getSort().toString())
@@ -40,7 +40,7 @@ public class MarketController {
     public ResponseEntity<?> findMarket(@PathVariable long id) {
         return this.webClient
                 .get()
-                .uri("/markets/" + id)
+                .uri("http://gateway/markets/" + id)
                 .retrieve()
                 .toEntity(FindMarketDetailResponse.class)
                 .block();
@@ -50,7 +50,7 @@ public class MarketController {
     public ResponseEntity<?> updateMarket(@PathVariable long id, @RequestBody MarketVO marketVO) {
         return this.webClient
                 .put()
-                .uri("/markets/" + id)
+                .uri("http://gateway/markets/" + id)
                 .body(BodyInserters.fromValue(marketVO))
                 .retrieve()
                 .toBodilessEntity().block();
@@ -60,7 +60,7 @@ public class MarketController {
     public ResponseEntity<?> deleteMarket(@PathVariable long id) {
         return this.webClient
                 .delete()
-                .uri("/markets/" + id)
+                .uri("http://gateway/markets/" + id)
                 .retrieve()
                 .toBodilessEntity().block();
     }
@@ -69,7 +69,7 @@ public class MarketController {
     public ResponseEntity<?> openMarket(@RequestBody CreateMarketRequest request) {
         return this.webClient
                 .post()
-                .uri("/markets")
+                .uri("http://gateway/markets")
                 .body(BodyInserters.fromValue(request))
                 .retrieve()
                 .toEntity(CreateMarketResponse.class)
@@ -80,7 +80,7 @@ public class MarketController {
     public ResponseEntity<?> updateRestaurant(@PathVariable long id, @RequestBody RestaurantVO restaurantVO) {
         return this.webClient
                 .put()
-                .uri("/markets/" + id + "/restaurant")
+                .uri("http://gateway/markets/" + id + "/restaurant")
                 .body(BodyInserters.fromValue(restaurantVO))
                 .retrieve()
                 .toBodilessEntity().block();
@@ -90,7 +90,7 @@ public class MarketController {
     public ResponseEntity<?> deleteFood(@PathVariable long id, @PathVariable long fid) {
         return this.webClient
                 .delete()
-                .uri("/markets/" + id + "/foods/" + fid)
+                .uri("http://gateway/markets/" + id + "/foods/" + fid)
                 .retrieve()
                 .toBodilessEntity().block();
     }
@@ -99,7 +99,7 @@ public class MarketController {
     public ResponseEntity<?> updateFood(@PathVariable long id, @PathVariable long fid, @RequestBody FoodVO foodVO) {
         return this.webClient
                 .put()
-                .uri("/markets/" + id + "/foods/" + fid)
+                .uri("http://gateway/markets/" + id + "/foods/" + fid)
                 .body(BodyInserters.fromValue(foodVO))
                 .retrieve()
                 .toBodilessEntity().block();
@@ -109,7 +109,7 @@ public class MarketController {
     public ResponseEntity<?> addFood(@PathVariable long id, @RequestBody FoodVO foodVO) {
         return this.webClient
                 .post()
-                .uri("/markets/" + id + "/foods")
+                .uri("http://gateway/markets/" + id + "/foods")
                 .body(BodyInserters.fromValue(foodVO))
                 .retrieve()
                 .toBodilessEntity().block();
