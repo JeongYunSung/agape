@@ -128,7 +128,7 @@ public class KakaoPayService {
     private HttpHeaders getHeaders() {
         HttpHeaders httpHeaders = new HttpHeaders();
 
-        httpHeaders.add(HttpHeaders.AUTHORIZATION, "KakaoAK 재발급된 키로 지정");
+        httpHeaders.add(HttpHeaders.AUTHORIZATION, "KakaoAK");
         httpHeaders.add(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
         httpHeaders.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_FORM_URLENCODED_VALUE);
 

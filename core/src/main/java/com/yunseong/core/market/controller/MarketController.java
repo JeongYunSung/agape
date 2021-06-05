@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 
 @RestController
-@RequestMapping(value = "/markets", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "markets", produces = MediaType.APPLICATION_JSON_VALUE)
 @RequiredArgsConstructor
 public class MarketController {
 

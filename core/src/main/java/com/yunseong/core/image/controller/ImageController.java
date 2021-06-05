@@ -14,7 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.net.URI;
 
 @RestController
-@RequestMapping(value = "/images")
+@RequestMapping(value = "images")
 @RequiredArgsConstructor
 public class ImageController {
 

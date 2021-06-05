@@ -5,6 +5,7 @@ import com.yunseong.core.member.CreateMemberResponse;
 import com.yunseong.core.member.service.MemberDetailsService;
 import com.yunseong.core.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.env.Environment;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
@@ -20,8 +21,11 @@ public class MemberController {
     private final MemberService memberService;
     private final MemberDetailsService memberDetailsService;
 
+//    private final Environment environment;
+
     @GetMapping("/login")
     public ResponseEntity<?> login(JwtAuthenticationToken jwtAuthenticationToken) {
+//        System.out.println(environment.getProperty("server.port"));
         return ResponseEntity.ok(jwtAuthenticationToken != null && jwtAuthenticationToken.getTokenAttributes().get("user_name") != null);
 //        return ResponseEntity.ok(principal != null && (principal.getAttribute("user_name") != null));
     }

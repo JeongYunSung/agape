@@ -18,14 +18,14 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          jwk-set-uri: http://${server.address:localhost}:${server.port}/.well-known/jwks.json
+          jwk-set-uri: http://localhost:${server_port}/.well-known/jwks.json
 
 payment:
   kakaopay:
     host: https://kapi.kakao.com
-    cancel-uri: http://${server.address:localhost}:${server.port}/payments/kakaoPayCancel
-    success-uri: http://${server.address:localhost}:${server.port}/payments/kakaoPaySuccess
-    success-fail-uri: http://${server.address:localhost}:${server.port}/payments/kakaoPaySuccessFail
+    cancel-uri: http://localhost:${server_port}/payments/kakaoPayCancel
+    success-uri: http://localhost:${server_port}/payments/kakaoPaySuccess
+    success-fail-uri: http://localhost:${server_port}/payments/kakaoPaySuccessFail
 
 logging:
   level:
