@@ -2,10 +2,7 @@
 
 ## 아키텍처
 
-                     CORE 서버1
-API 게이트웨이서버 -> CORE 서버2 -> MariaDB
-                     CORE 서버3
-                     
+API 게이트웨이서버 -> CORE 서버1, CORE 서버2, CORE 서버3 -> MariaDB                   
 
 위와같이 게이트웨이 서버를 통해 로드밸런싱 구축 ( 방식은 라운드로빈 )
 
